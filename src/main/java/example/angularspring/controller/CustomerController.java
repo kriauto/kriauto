@@ -68,7 +68,7 @@ public class CustomerController {
     public Customer getCustomer(@RequestHeader(value="Authorization") String authorization, @RequestBody Integer id) {
     	System.out.println("Begin getCarByDevice -->"+id);
     	String token = authorization.replaceAll("Basic", "");
-    	Profile profile = profileService.getProfileByToken(token);
+    	Profile profile = profileService.getProfileByToken(token); 
     	if(null == profile){
     		throw new IllegalArgumentException("ACTION_FAILED");
     	}
