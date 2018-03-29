@@ -2,6 +2,7 @@ DROP TABLE car;
 DROP TABLE profile;
 DROP TABLE agency;
 DROP TABLE contact;
+DROP TABLE customer;
 
 
 --
@@ -99,6 +100,35 @@ CREATE TABLE messages (
     creationdate timestamp default current_timestamp,
     texte varchar(1000)
 );
+
+--
+-- Name: customer; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE customer (
+    id integer NOT NULL,
+    login character varying(100) NOT NULL,
+    password character varying(100) NOT NULL,
+    last_name character varying(100) NOT NULL,
+    first_name character varying(100) NOT NULL,
+    city character varying(100) NOT NULL,
+    address character varying(100) NOT NULL,
+    mail character varying(100) NOT NULL,
+    phone character varying(50) NOT NULL,
+    cin character varying(50) NOT NULL,
+    scan_cin character varying(50) NOT NULL,
+    scan_driver_license character varying(50),
+    date_creation timestamp default current_timestamp,
+    createdby integer NOT NULL,
+    date_modification timestamp,
+    modifiedby integer
+);
+
+--
+-- Name: customer_seq_id; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE customer_seq_id START 1;
 
 --
 -- Name: agency_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres

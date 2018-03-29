@@ -314,7 +314,7 @@ public class CarDaoImpl implements CarDao {
 		System.out.println("getAllLocationsByCar " + deviceid);
         try
         {
-        	Location location = jdbcTemplate.queryForObject(" select distinct c.*, ps.* "
+        	Location location = (Location)jdbcTemplate.queryForObject(" select distinct c.*, ps.* "
 				    + " from positions ps, car c "
 				    + " where ps.id =  (select MAX(id) from positions where deviceid = ? ) "
 				    + " and   ps.deviceid = c.deviceid ",new Object[] { deviceid}, new BeanPropertyRowMapper(Location.class));

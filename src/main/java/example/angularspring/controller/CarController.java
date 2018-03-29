@@ -187,9 +187,9 @@ public class CarController {
     	Car car = carService.getCarByDevice(deviceid);
     	Location location = carService.getLastPositionByCar(deviceid);
     	if(location.getSpeed() == 0 && location.getCourse() == 0){
-    		int status = senderService.sendSms("KriAuto.ma", car.getSimnumber(), "noquickstop123456");
+    		int status = senderService.sendSms("kriauto.ma", car.getSimnumber(), "noquickstop123456");
     		if(status == 0){
-    		    senderService.sendSms("KriAuto.ma", profile.getPhone(), "voiture arreté : "+car.getMark()+car.getModel()+car.getColor()+"("+car.getImmatriculation()+")");
+    		    senderService.sendSms("kriauto.ma", profile.getPhone(), "voiture arreté : "+car.getMark()+car.getModel()+car.getColor()+"("+car.getImmatriculation()+")");
     		    car.setStatus(1);
     		    carService.updateCar(car);
     		    System.out.println("voiture arreté : "+car.getMark()+car.getModel()+car.getColor()+"("+car.getImmatriculation()+")");
@@ -215,7 +215,7 @@ public class CarController {
     		throw new IllegalArgumentException("ACTION_FAILED");
     	}
     	Car car = carService.getCarByDevice(deviceid);
-    	//int status = senderService.sendSms("KriAuto.ma", car.getSimnumber(), "resum123456");
+    	//int status = senderService.sendSms("kriauto.ma", car.getSimnumber(), "resum123456");
     	//if(status == 0){
     	  car.setStatus(0);
     	  carService.updateCar(car);

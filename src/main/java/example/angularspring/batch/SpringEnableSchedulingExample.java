@@ -39,8 +39,8 @@ public class SpringEnableSchedulingExample {
         	Location location = carservice.getLastPositionByCar(notif.getDeviceid());
         	if(location.getSpeed() == 0.0 && location.getCourse() == 0.0){
         		String message = "voiture arreté : "+notif.getMark()+" "+notif.getModel()+" "+notif.getColor()+" ("+notif.getImmatriculation()+")";
-        		senderservice.sendSms("KriAuto.ma", notif.getSimnumber(), "noquickstop123456");
-        		senderservice.sendSms("KriAuto.ma", notif.getPhone(), message);
+        		senderservice.sendSms("kriauto.ma", notif.getSimnumber(), "noquickstop123456");
+        		senderservice.sendSms("kriauto.ma", notif.getPhone(), message);
         		Car car = carservice.getCarByDevice(notif.getDeviceid());
         		car.setStatus(1);
         		carservice.updateCar(car);
@@ -68,7 +68,7 @@ public class SpringEnableSchedulingExample {
         		Location location = locations.get(j);
         		if(isInCeuta(location.getLatitude(), location.getLongitude())){
         			String message = "La "+notif.getMark()+" "+notif.getModel()+" "+notif.getColor()+" ("+notif.getImmatriculation()+") est à ceuta";
-        			senderservice.sendSms("KriAuto.ma", notif.getPhone(), message);
+        			senderservice.sendSms("kriauto.ma", notif.getPhone(), message);
             		Car car = carservice.getCarByDevice(notif.getDeviceid());
             		car.setIsnotifdefaultgeofence(true);
             		carservice.updateCar(car);
@@ -79,7 +79,7 @@ public class SpringEnableSchedulingExample {
         		}
         		if(isInMelilea(location.getLatitude(), location.getLongitude())){
         			String message = "La "+notif.getMark()+" "+notif.getModel()+" "+notif.getColor()+" ("+notif.getImmatriculation()+") est à Melilia";
-        			senderservice.sendSms("KriAuto.ma", notif.getPhone(), message);
+        			senderservice.sendSms("kriauto.ma", notif.getPhone(), message);
             		Car car = carservice.getCarByDevice(notif.getDeviceid());
             		car.setIsnotifdefaultgeofence(true);
             		carservice.updateCar(car);
@@ -90,7 +90,7 @@ public class SpringEnableSchedulingExample {
         		}
         		if(isInAlgerie(location.getLatitude(), location.getLongitude())){
         			String message = "La "+notif.getMark()+" "+notif.getModel()+" "+notif.getColor()+" ("+notif.getImmatriculation()+") est en Algerie";
-        			senderservice.sendSms("KriAuto.ma", notif.getPhone(), message);
+        			senderservice.sendSms("kriauto.ma", notif.getPhone(), message);
             		Car car = carservice.getCarByDevice(notif.getDeviceid());
             		car.setIsnotifdefaultgeofence(true);
             		carservice.updateCar(car);
@@ -101,7 +101,7 @@ public class SpringEnableSchedulingExample {
         		}
         		if(isInMauritanie(location.getLatitude(), location.getLongitude())){
         			String message = "La "+notif.getMark()+" "+notif.getModel()+" "+notif.getColor()+" ("+notif.getImmatriculation()+") est en Mauritanie";
-        			senderservice.sendSms("KriAuto.ma", notif.getPhone(), message);
+        			senderservice.sendSms("kriauto.ma", notif.getPhone(), message);
             		Car car = carservice.getCarByDevice(notif.getDeviceid());
             		car.setIsnotifdefaultgeofence(true);
             		carservice.updateCar(car);
@@ -131,7 +131,7 @@ public class SpringEnableSchedulingExample {
         		Location location = locations.get(j);
         		if(!isInZone(notif, location.getLatitude(), location.getLongitude())){
         			String message = "La "+notif.getMark()+" "+notif.getModel()+" "+notif.getColor()+" ("+notif.getImmatriculation()+") à quitter la zone virtuelle";
-        			senderservice.sendSms("KriAuto.ma", notif.getPhone(), message);
+        			senderservice.sendSms("kriauto.ma", notif.getPhone(), message);
             		Car car = carservice.getCarByDevice(notif.getDeviceid());
             		car.setIsnotifgeofence(true);
             		carservice.updateCar(car);
