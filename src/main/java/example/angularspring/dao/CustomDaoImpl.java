@@ -29,7 +29,7 @@ public class CustomDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public void deleteCustomer(Integer id) {
+	public void deleteCustomer(Integer id) { 
 		// TODO Auto-generated method stub
 		System.out.println("deleteCustomer ");
 	    jdbcTemplate.update("DELETE customer WHERE id = ? ", new Object[] {id});

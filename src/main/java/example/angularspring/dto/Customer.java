@@ -12,7 +12,7 @@ public class Customer {
 	private String address;
 	private String mail;
 	private String phone;
-	private String cin;
+	private String cin; 
 	private String scan_cin;
 	private String scan_driver_license;
 	private Timestamp date_creation;

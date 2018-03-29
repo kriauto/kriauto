@@ -11,7 +11,7 @@ import example.angularspring.dto.Customer;
 @Service("customerService")
 public class CustomerServiceImpl implements CustomerService {
 	
-	@Autowired
+	@Autowired 
 	CustomerDao customerdao;
 
 	@Override

@@ -11,5 +11,5 @@ public interface CustomerService {
 	public void updateCustomer(Customer customer);
 	public List<Customer> getAllCustomers();
 	public Integer getCustomerSeq();
-
+ 
 }

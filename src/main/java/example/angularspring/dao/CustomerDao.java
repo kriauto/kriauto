@@ -10,6 +10,6 @@ public interface CustomerDao {
 	public Customer getCustomer(Integer id);
 	public void updateCustomer(Customer customer);
 	public List<Customer> getAllCustomers();
-	public Integer getCustomerSeq();
+	public Integer getCustomerSeq(); 
 
 }
