@@ -26,6 +26,7 @@
 <!-- enerique css kriauto -->
 <link href="css/kriauto.css" rel="stylesheet">
 
+
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 <script src="bootstrap/js/ie-emulation-modes-warning.js"></script>
@@ -63,6 +64,7 @@
                           <li class="collapsed"><a data-toggle="modal" data-target="#myModal">Geolocalisation</a></li>
                           <li class="collapsed"><a href="#!/dashboard">Statistiques</a></li>
                           <li class="collapsed"><a href="#!/parametres">Paramètres</a></li>
+                          <li class="collapsed"><a href="#!/customers">Clients</a></li>
                          </ul>
                         </li>
                         <li class="collapsed" ng-hide="loggedIn"><a href="#!/login">Connexion&nbsp;&nbsp;</a></li>
@@ -100,12 +102,15 @@
     </footer>
 	<!-- End Footer -->
 
+  
 <script type="text/javascript" src="jquery/js/jquery.min.js"></script>
-<script type="text/javascript"
-	src="jquery/js/jquery.i18n.properties-min-1.0.9.js"></script>
+<script type="text/javascript" src="jquery/js/jquery.i18n.properties-min-1.0.9.js"></script>
 <script type="text/javascript" src="angular/js/angular.js"></script>
-<script type="text/javascript" src="angular/js/angular-route.js"></script>
 <script type="text/javascript" src="angular/js/angular-cookies.js"></script>
+<script type="text/javascript" src="angular/js/angular-route.js"></script>
+<script type="text/javascript" src="angular/js/dirPagination.js" charset="utf-8"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+
 <script type="text/javascript" src="js/init.js"></script>
 <script type="text/javascript" src="js/gpscontroller.js"></script>
 <script type="text/javascript" src="js/profilecontroller.js"></script>
@@ -114,8 +119,9 @@
 <script type="text/javascript" src="js/dashboardcontroller.js"></script>
 <script type="text/javascript" src="js/parametrescontroller.js"></script>
 <script type="text/javascript" src="js/contactcontroller.js"></script>
+<script type="text/javascript" src="js/customercontroller.js"></script>
 <script type="text/javascript" src="js/i18n.js" charset="utf-8"></script>
-<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-w27Lhidw00LPBW7UWHp1TBPv4O3v650"></script>
 
 	<script type="text/javascript">

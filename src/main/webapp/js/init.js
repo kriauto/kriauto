@@ -5,12 +5,12 @@
     //the HTTP headers to be used by all requests
         httpHeaders,
 
-    //the message to be shown to the user
+    //the message to be shown to the user 
         message,
 
     //Define the main module.
     //The module is accessible everywhere using "angular.module('angularspring')", therefore global variables can be avoided totally.
-        as = angular.module('angularspring', ['ngRoute', 'ngCookies']); 
+        as = angular.module('angularspring', ['ngRoute', 'ngCookies', 'angularUtils.directives.dirPagination','ui.bootstrap']); 
 
     as.config(function ($routeProvider, $httpProvider, $qProvider) {
         //configure the rounting of ng-view
@@ -23,6 +23,7 @@
                       .when('/initPassword', { controller: 'PasswordController', templateUrl: 'html/password.html'})
                       .when('/dashboard', { controller: 'DashboardController', templateUrl: 'html/dashboard.html'})
                       .when('/parametres', { controller: 'ParametresController', templateUrl: 'html/parametres.html'})
+                      .when('/customers', { controller: 'CustomersController', templateUrl: 'html/customers.html'})
                       .otherwise({redirectTo: '/aboutus'});
         
         $qProvider.errorOnUnhandledRejections(false);

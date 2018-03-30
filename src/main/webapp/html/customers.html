@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta charset="UTF-8" />
+<title>Titre de votre page</title>
+<head>
+</head>  
+<body>  
+  <div ng-controller="CustomersController">
+  
+     <div style="border-bottom: 2px solid #337ab7; color: #2e6da4; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; font-size: 20px; margin-top: 5px; margin-bottom: 5px;">Liste Clients</div>
+     
+     <table class="table table-striped table-hover table-bordered">
+        <thead>
+           <tr>
+             <th width="20%" ng-click="sort('id')">Id
+                <span class="glyphicon sort-icon" ng-show="sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+             </th>
+             <th width="20%" ng-click="sort('first_name')">First Name
+                <span class="glyphicon sort-icon" ng-show="sortKey=='first_name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+             </th>
+             <th width="20%" ng-click="sort('last_name')">Last Name
+                <span class="glyphicon sort-icon" ng-show="sortKey=='last_name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+             </th>
+             <th width="20%" ng-click="sort('hobby')">Hobby
+                <span class="glyphicon sort-icon" ng-show="sortKey=='hobby'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+             </th>
+             <th width="20%">
+               <input type="text" ng-model="search" class="form-control" width="100px" placeholder="Recherche">
+             </th>
+           </tr>
+        </thead>
+        <tbody>
+           <tr dir-paginate="user in users|orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
+              <td>{{user.id}}</td>
+              <td>{{user.first_name}}</td>
+              <td>{{user.last_name}}</td>
+              <td>{{user.hobby}}</td>
+              <td><button class="btn" ng-click="open()">Open me!</button> | supprimer</td>
+           </tr>
+        </tbody>
+        <dir-pagination-controls
+          max-size="5"
+          direction-links="true"
+          boundary-links="true" >
+        </dir-pagination-controls>
+     </table>
+   </div>
+</body>  
+</html>  

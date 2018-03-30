@@ -3,6 +3,7 @@ package example.angularspring.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import example.angularspring.service.CustomerService;
 import example.angularspring.service.ProfileService;
 import example.angularspring.util.Constant;
 
+@Controller
 public class CustomerController {
 	
 	@Autowired
@@ -27,7 +29,7 @@ public class CustomerController {
 	@RequestMapping(value = "/addCustomer", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage addCustomer(@RequestHeader(value="Authorization") String authorization, @RequestBody Customer customer) {
-    	System.out.println("Begin updateCar -->"+customer);
+    	System.out.println("Begin addCustomer -->"+customer);
     	String token = authorization.replaceAll("Basic", "");
     	Profile profile = profileService.getProfileByToken(token);
     	if(null == profile){
@@ -40,7 +42,7 @@ public class CustomerController {
 	@RequestMapping(value = "/updateCustomer", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage updateCustomer(@RequestHeader(value="Authorization") String authorization, @RequestBody Customer customer) {
-    	System.out.println("Begin updateCar -->"+customer);
+    	System.out.println("Begin updateCustomer -->"+customer);
     	String token = authorization.replaceAll("Basic", "");
     	Profile profile = profileService.getProfileByToken(token);
     	if(null == profile){
@@ -53,7 +55,7 @@ public class CustomerController {
 	@RequestMapping(value = "/deleteCustomer", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage deleteCustomer(@RequestHeader(value="Authorization") String authorization, @RequestBody Integer id) {
-    	System.out.println("Begin getCarByDevice -->"+id);
+    	System.out.println("Begin deleteCustomer -->"+id);
     	String token = authorization.replaceAll("Basic", "");
     	Profile profile = profileService.getProfileByToken(token);
     	if(null == profile){
@@ -66,7 +68,7 @@ public class CustomerController {
 	@RequestMapping(value = "/getCustomer", method = RequestMethod.POST)
     @ResponseBody
     public Customer getCustomer(@RequestHeader(value="Authorization") String authorization, @RequestBody Integer id) {
-    	System.out.println("Begin getCarByDevice -->"+id);
+    	System.out.println("Begin getCustomer -->"+id);
     	String token = authorization.replaceAll("Basic", "");
     	Profile profile = profileService.getProfileByToken(token); 
     	if(null == profile){
@@ -76,10 +78,10 @@ public class CustomerController {
     	return customer;
     }
 	
-	@RequestMapping(value = "/getAllCustomer", method = RequestMethod.POST)
+	@RequestMapping(value = "/getCustomers", method = RequestMethod.POST)
     @ResponseBody
-    public List<Customer> getAllCustomer(@RequestHeader(value="Authorization") String authorization) {
-    	System.out.println("Begin getCarByDevice -->");
+    public List<Customer> getCustomers(@RequestHeader(value="Authorization") String authorization) {
+    	System.out.println("Begin getCustomers -->");
     	String token = authorization.replaceAll("Basic", "");
     	Profile profile = profileService.getProfileByToken(token);
     	if(null == profile){
