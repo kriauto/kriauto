@@ -15,30 +15,33 @@
      <table class="table table-striped table-hover table-bordered">
         <thead>
            <tr>
-             <th width="20%" ng-click="sort('id')">Id
-                <span class="glyphicon sort-icon" ng-show="sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+             <th width="20%" ng-click="sort('cin')">CIN
+                <span class="glyphicon sort-icon" ng-show="sortKey=='cin'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
              </th>
-             <th width="20%" ng-click="sort('first_name')">First Name
+             <th width="20%" ng-click="sort('first_name')">Nom
                 <span class="glyphicon sort-icon" ng-show="sortKey=='first_name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
              </th>
-             <th width="20%" ng-click="sort('last_name')">Last Name
+             <th width="20%" ng-click="sort('last_name')">Prénom
                 <span class="glyphicon sort-icon" ng-show="sortKey=='last_name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
              </th>
-             <th width="20%" ng-click="sort('hobby')">Hobby
-                <span class="glyphicon sort-icon" ng-show="sortKey=='hobby'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+             <th width="20%" ng-click="sort('date_modification')">Date modification
+                <span class="glyphicon sort-icon" ng-show="sortKey=='date_modification'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
              </th>
-             <th width="20%">
-               <input type="text" ng-model="search" class="form-control" width="100px" placeholder="Recherche">
+             <th width="15%">
+               <input type="text" ng-model="search" class="form-control" width="10px" placeholder="Recherche"/>
+             </th>
+             <th width="5%">
+               <button class="btn btn-success btn-sm" ng-click="actionadd()">Ajouter</button>
              </th>
            </tr>
         </thead>
         <tbody>
-           <tr dir-paginate="user in users|orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
-              <td>{{user.id}}</td>
-              <td>{{user.first_name}}</td>
-              <td>{{user.last_name}}</td>
-              <td>{{user.hobby}}</td>
-              <td><button class="btn" ng-click="open()">Open me!</button> | supprimer</td>
+           <tr dir-paginate="customer in customers|orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
+              <td>{{customer.cin}}</td>
+              <td>{{customer.first_name}}</td>
+              <td>{{customer.last_name}}</td>
+              <td>{{customer.date_modification}}</td>
+              <td colspan="2" align="center"><button class="btn btn-warning btn-sm" ng-click="actionedit(customer.id)">Editer</button> <button class="btn btn-danger btn-sm" ng-click="actiondel(customer.id)">Supprimer</button> <button class="btn btn-info btn-sm" ng-click="actionview(customer.id)">Consulter</button></td>
            </tr>
         </tbody>
         <dir-pagination-controls
@@ -47,6 +50,294 @@
           boundary-links="true" >
         </dir-pagination-controls>
      </table>
-   </div>
+     
+     <!-- add customer -->
+     <div ng-show="addcustomer">
+     <div style="border-bottom: 2px solid #337ab7; color: #2e6da4; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; font-size: 20px; margin-top: 5px; margin-bottom: 20px;">Ajout Client</div>
+     
+     <!-- alert div -->
+	 <div ng-class="'alert alert-'+message().type" ng-show="message().show">
+		<button type="button" class="close" ng-click="message().show=false">×</button>
+		<msg key-expr="message().code"></msg>
+	 </div>
+	 <!--  -->
+     
+     <form class="form-horizontal" role="form" id="customerform">
+			<div class="form-group required">
+				<label for="firstName" class="col-sm-3 control-label">Nom</label>
+				<div class="col-sm-9">
+					<input type="text" 
+						class="form-control" ng-model="customer.last_name">
+				</div>
+			</div>
+			<div class="form-group required">
+				<label for="email" class="col-sm-3 control-label">Prenom</label>
+				<div class="col-sm-9">
+					<input type="text" 
+						class="form-control" ng-model="customer.first_name">
+				</div>
+			</div>
+			<div class="form-group required">
+				<label for="password" class="col-sm-3 control-label">Ville</label>
+				<div class="col-sm-9">
+					<input type="text" 
+						class="form-control" ng-model="customer.city">
+				</div>
+			</div>
+			<div class="form-group required">
+				<label for="birthDate" class="col-sm-3 control-label">Adresse</label>
+				<div class="col-sm-9">
+					<input type="text" 
+					    class="form-control" ng-model="customer.address">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="birthDate" class="col-sm-3 control-label">Mail</label>
+				<div class="col-sm-9">
+					<input type="text"  
+					   class="form-control" ng-model="customer.mail">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="birthDate" class="col-sm-3 control-label">Téléphone</label>
+				<div class="col-sm-9">
+					<input type="text"  
+					   class="form-control" ng-model="customer.phone">
+				</div>
+			</div>
+			<div class="form-group required" ng-show="viewcin">
+				<label for="birthDate" class="col-sm-3 control-label">CIN</label>
+				<div class="col-sm-9">
+					<input type="text" 
+					  class="form-control" ng-model="customer.cin">
+				</div>
+			</div>
+			<div class="form-group" ng-show="viewcin">
+				<label for="birthDate" class="col-sm-3 control-label">Pièce d'identité</label>
+				<div class="col-sm-9">
+					<input  type="file" file-model="cin"></input>
+				</div>
+			</div>
+			<div class="form-group" ng-hide="viewcin">
+				<label for="birthDate" class="col-sm-3 control-label">Pièce d'identité</label>
+				<div class="col-sm-9">
+					<img src="upload/capture.jpg"></img>  <button type="submit" class="btn btn-danger btn-sm" ng-click = "deletecin()">Supprimer</button>
+				</div>
+			</div>
+			<div class="form-group" ng-show="viewlicense">
+				<label for="birthDate" class="col-sm-3 control-label">Permis de conduire</label>
+				<div class="col-sm-9">
+					<input  type="file" file-model="license"></input>
+				</div>
+			</div>
+			<div class="form-group" ng-hide="viewlicense">
+				<label for="birthDate" class="col-sm-3 control-label">Permis de conduire</label>
+				<div class="col-sm-9">
+					<img src="upload/capture.jpg"></img>  <button type="submit" class="btn btn-danger btn-sm" ng-click = "deletelicense()">Supprimer</button>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-9 col-sm-offset-3">
+					<button type="submit" class="btn btn-primary btn-block" ng-click="savecustomer()">Enregistrer</button>
+				</div>
+			</div>
+		</form>
+		</div>
+		<!-- end add customer -->
+		<!-- edit customer -->
+     <div ng-show="editcustomer">
+     <div style="border-bottom: 2px solid #337ab7; color: #2e6da4; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; font-size: 20px; margin-top: 5px; margin-bottom: 20px;">Modification Client</div>
+     
+     <!-- alert div -->
+	 <div ng-class="'alert alert-'+message().type" ng-show="message().show">
+		<button type="button" class="close" ng-click="message().show=false">×</button>
+		<msg key-expr="message().code"></msg>
+	 </div>
+	 <!--  -->
+     
+     <form class="form-horizontal" role="form" id="customerform">
+			<div class="col-sm-9" ng-hide="true">
+					<input type="text" class="form-control" ng-model="customer.id">
+		    </div>
+			<div class="form-group required">
+				<label for="firstName" class="col-sm-3 control-label">Nom</label>
+				<div class="col-sm-9">
+					<input type="text" 
+						class="form-control" ng-model="customer.last_name">
+				</div>
+			</div>
+			<div class="form-group required">
+				<label for="email" class="col-sm-3 control-label">Prenom</label>
+				<div class="col-sm-9">
+					<input type="text" 
+						class="form-control" ng-model="customer.first_name">
+				</div>
+			</div>
+			<div class="form-group required">
+				<label for="password" class="col-sm-3 control-label">Ville</label>
+				<div class="col-sm-9">
+					<input type="text" 
+						class="form-control" ng-model="customer.city">
+				</div>
+			</div>
+			<div class="form-group required">
+				<label for="birthDate" class="col-sm-3 control-label">Adresse</label>
+				<div class="col-sm-9">
+					<input type="text" 
+					    class="form-control" ng-model="customer.address">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="birthDate" class="col-sm-3 control-label">Mail</label>
+				<div class="col-sm-9">
+					<input type="text"  
+					   class="form-control" ng-model="customer.mail">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="birthDate" class="col-sm-3 control-label">Téléphone</label>
+				<div class="col-sm-9">
+					<input type="text"  
+					   class="form-control" ng-model="customer.phone">
+				</div>
+			</div>
+			<div class="form-group required" ng-show="viewcin">
+				<label for="birthDate" class="col-sm-3 control-label">CIN</label>
+				<div class="col-sm-9">
+					<input type="text" 
+					  class="form-control" ng-model="customer.cin">
+				</div>
+			</div>
+			<div class="form-group">
+			  <label for="birthDate" class="col-sm-3 control-label">Date</label>
+			  <div class="col-sm-9 date">
+            <div class="input-group input-append date" id="datePicker">
+                <input type="text" class="form-control"ng-model="customer.date" />
+                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+        </div>
+            </div>
+			<div class="form-group" ng-hide="viewcin">
+				<label for="birthDate" class="col-sm-3 control-label">Pièce d'identité</label>
+				<div class="col-sm-9">
+					<input  type="file" file-model="cin"></input>
+				</div>
+			</div>
+			<div class="form-group" ng-show="viewcin">
+				<label for="birthDate" class="col-sm-3 control-label">Pièce d'identité</label>
+				<div class="col-sm-9">
+					<a  href=""><img width="60px" height="60px" src="upload/{{customer.scan_cin}}" ng-click="displayimage(customer.scan_cin,1)"></img></a>  <button type="submit" class="btn btn-danger btn-sm" ng-click = "deletecin()">Supprimer</button>
+				</div>
+			</div>
+			<div class="form-group" ng-hide="viewlicense">
+				<label for="birthDate" class="col-sm-3 control-label">Permis de conduire</label>
+				<div class="col-sm-9">
+					<input  type="file" file-model="license"></input>
+				</div>
+			</div>
+			<div class="form-group" ng-show="viewlicense">
+				<label for="birthDate" class="col-sm-3 control-label">Permis de conduire</label>
+				<div class="col-sm-9">
+					<a  href=""><img width="60px" height="60px" src="upload/{{customer.scan_driver_license}}" ng-click="displayimage(customer.scan_driver_license,2)"></img></a>  <button type="submit" class="btn btn-danger btn-sm" ng-click = "deletelicense()">Supprimer</button>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-9 col-sm-offset-3">
+					<button type="submit" class="btn btn-primary btn-block" ng-click="updatecustomer()">Modifier</button>
+				</div>
+			</div>
+		</form>
+		</div>
+		<!-- end edit customer -->
+		<!-- view customer -->
+     <div ng-show="viewcustomer">
+     <div style="border-bottom: 2px solid #337ab7; color: #2e6da4; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; font-size: 20px; margin-top: 5px; margin-bottom: 20px;">Consultation Client</div>
+     
+     <form class="form-horizontal" role="form" id="customerform">
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Nom</label>
+				<div class="col-sm-9">
+					<p class="form-control-static">{{customer.last_name}}</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Prenom</label>
+				<div class="col-sm-9">
+					<p class="form-control-static">{{customer.first_name}}</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Ville</label>
+				<div class="col-sm-9">
+					<p class="form-control-static">{{customer.city}}</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Adresse</label>
+				<div class="col-sm-9">
+					<p class="form-control-static">{{customer.address}}</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Mail</label>
+				<div class="col-sm-9">
+					<p class="form-control-static">{{customer.mail}}</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Téléphone</label>
+				<div class="col-sm-9">
+					<p class="form-control-static">{{customer.phone}}</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">CIN</label>
+				<div class="col-sm-9">
+					<p class="form-control-static">{{customer.cin}}</p>
+				</div>
+			</div>
+			<div class="form-group" ng-show="viewcin">
+				<label class="col-sm-3 control-label">Pièce d'identité</label>
+				<div class="col-sm-9">
+					<a  href=""><img width="60px" height="60px" src="upload/{{customer.scan_cin}}" ng-click="displayimage(customer.scan_cin,1)"></img></a>
+				</div>
+			</div>
+			<div class="form-group" ng-hide="viewcin">
+				<label class="col-sm-3 control-label">Pièce d'identité</label>
+				<div class="col-sm-9">
+					<img width="60px" height="60px" src="img/no_image.png"></img>
+				</div>
+			</div>
+			<div class="form-group" ng-show="viewlicense">
+				<label class="col-sm-3 control-label">Permis de conduire</label>
+				<div class="col-sm-9">
+					<a  href=""><img width="60px" height="60px" src="upload/{{customer.scan_driver_license}}" ng-click="displayimage(customer.scan_driver_license,2)"></img></a>
+				</div>
+			</div>
+			<div class="form-group" ng-hide="viewlicense">
+				<label class="col-sm-3 control-label">Permis de conduire</label>
+				<div class="col-sm-9">
+					<img width="60px" height="60px" src="img/no_image.png"></img>
+				</div>
+			</div>
+		</form>
+		</div>
+		<!-- end view customer -->	
+</div>
+
+
+<script>
+$(document).ready(function() {
+    $('#datePicker')
+        .datepicker({
+            format: 'yyyy-mm-dd',
+            orientation: "bottom left",
+            todayHighlight:true,
+            autoclose: true,
+        });  
+});
+</script>
+
+
 </body>  
 </html>  

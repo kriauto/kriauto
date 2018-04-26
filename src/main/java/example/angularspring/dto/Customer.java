@@ -1,6 +1,5 @@
 package example.angularspring.dto;
 
-import java.sql.Timestamp;
 
 public class Customer {
 	private Integer id;
@@ -13,11 +12,12 @@ public class Customer {
 	private String mail;
 	private String phone;
 	private String cin; 
+	private String date;
 	private String scan_cin;
 	private String scan_driver_license;
-	private Timestamp date_creation;
+	private String date_creation;
 	private Integer createdby;
-	private Timestamp date_modification;
+	private String date_modification;
 	private Integer modifiedby;
 	
 	public Customer() {
@@ -26,9 +26,9 @@ public class Customer {
 
 	public Customer(Integer id, String login, String password,
 			String last_name, String first_name, String city, String address,
-			String mail, String phone, String cin, String scan_cin,
-			String scan_driver_license, Timestamp date_creation,
-			Integer createdby, Timestamp date_modification, Integer modifiedby) {
+			String mail, String phone, String cin, String date,
+			String scan_cin, String scan_driver_license, String date_creation,
+			Integer createdby, String date_modification, Integer modifiedby) {
 		super();
 		this.id = id;
 		this.login = login;
@@ -40,6 +40,7 @@ public class Customer {
 		this.mail = mail;
 		this.phone = phone;
 		this.cin = cin;
+		this.date = date;
 		this.scan_cin = scan_cin;
 		this.scan_driver_license = scan_driver_license;
 		this.date_creation = date_creation;
@@ -127,6 +128,14 @@ public class Customer {
 	public void setCin(String cin) {
 		this.cin = cin;
 	}
+	
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
 
 	public String getScan_cin() {
 		return scan_cin;
@@ -144,11 +153,11 @@ public class Customer {
 		this.scan_driver_license = scan_driver_license;
 	}
 
-	public Timestamp getDate_creation() {
+	public String getDate_creation() {
 		return date_creation;
 	}
 
-	public void setDate_creation(Timestamp date_creation) {
+	public void setDate_creation(String date_creation) {
 		this.date_creation = date_creation;
 	}
 
@@ -160,11 +169,11 @@ public class Customer {
 		this.createdby = createdby;
 	}
 
-	public Timestamp getDate_modification() {
+	public String getDate_modification() {
 		return date_modification;
 	}
 
-	public void setDate_modification(Timestamp date_modification) {
+	public void setDate_modification(String date_modification) {
 		this.date_modification = date_modification;
 	}
 
@@ -182,10 +191,11 @@ public class Customer {
 				+ password + ", last_name=" + last_name + ", first_name="
 				+ first_name + ", city=" + city + ", address=" + address
 				+ ", mail=" + mail + ", phone=" + phone + ", cin=" + cin
-				+ ", scan_cin=" + scan_cin + ", scan_driver_license="
-				+ scan_driver_license + ", date_creation=" + date_creation
-				+ ", createdby=" + createdby + ", date_modification="
-				+ date_modification + ", modifiedby=" + modifiedby + "]";
+				+ ", date=" + date + ", scan_cin=" + scan_cin
+				+ ", scan_driver_license=" + scan_driver_license
+				+ ", date_creation=" + date_creation + ", createdby="
+				+ createdby + ", date_modification=" + date_modification
+				+ ", modifiedby=" + modifiedby + "]";
 	}
 	
 }

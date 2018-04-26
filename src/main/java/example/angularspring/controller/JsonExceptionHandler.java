@@ -23,7 +23,7 @@ public class JsonExceptionHandler implements HandlerExceptionResolver {
 
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         try {
-        	if( null != ex.getMessage() && null != Constant.getLabels().get(ex.getMessage()).toString()){
+        	if( null != ex.getMessage() && null != Constant.getLabels().get(ex.getMessage()) && null != Constant.getLabels().get(ex.getMessage()).toString()){
         	   response.setStatus(401);
                mapper.writeValue(response.getWriter(), new ResponseMessage(ResponseMessage.Type.danger, ex.getMessage(),Constant.getLabels().get(ex.getMessage()).toString()));
         	}else{

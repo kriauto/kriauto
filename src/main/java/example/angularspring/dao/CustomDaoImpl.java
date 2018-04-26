@@ -1,5 +1,6 @@
 package example.angularspring.dao;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,15 +25,16 @@ public class CustomDaoImpl implements CustomerDao {
 	public void addCustomer(Customer customer) {
 		// TODO Auto-generated method stub
 		System.out.println("addCustomer ");
-	    jdbcTemplate.update(" INSERT INTO customer(id, last_naame, first_name, city, address, mail, phone, cin, scan_cin, scan_driver_license) "
-	    		+ " VALUES (nextval('customer_seq_id'),"+customer.getLast_name()+","+customer.getFirst_name()+","+customer.getCity()+","+customer.getAddress()+","+customer.getMail()+","+customer.getPhone()+","+customer.getCin()+","+customer.getScan_cin()+","+customer.getScan_driver_license()+")", new Object[] {customer});
+		Timestamp date_modification = new Timestamp(System.currentTimeMillis());
+	    jdbcTemplate.update(" INSERT INTO customer(id, login, password, last_name, first_name, city, address, mail, phone, cin, scan_cin, scan_driver_license,createdby, modifiedby,date_modification) "
+	    		+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {customer.getId(),customer.getLogin(),customer.getPassword(),customer.getLast_name(),customer.getFirst_name(),customer.getCity(),customer.getAddress(),customer.getMail(),customer.getPhone(),customer.getCin(),customer.getScan_cin(),customer.getScan_driver_license(),customer.getCreatedby(),customer.getModifiedby(),date_modification});
 	}
 
 	@Override
 	public void deleteCustomer(Integer id) { 
 		// TODO Auto-generated method stub
 		System.out.println("deleteCustomer ");
-	    jdbcTemplate.update("DELETE customer WHERE id = ? ", new Object[] {id});
+	    jdbcTemplate.update("DELETE FROM customer WHERE id = ? ", new Object[] {id});
 		
 	}
 
@@ -53,7 +55,7 @@ public class CustomDaoImpl implements CustomerDao {
 	public void updateCustomer(Customer customer) {
 		// TODO Auto-generated method stub
 		System.out.println("updateCustomer ");
-	    jdbcTemplate.update(" UPDATE customer SET last_naame = ? , first_name = ? , city = ? , address = ? , mail = ? , phone = ? , cin = ? , scan_cin = ? , scan_driver_license = ? ) ", new Object[] {customer.getLast_name(),customer.getFirst_name(),customer.getCity(),customer.getAddress(),customer.getMail(),customer.getPhone(),customer.getCin(),customer.getScan_cin(),customer.getScan_driver_license()});
+	    jdbcTemplate.update(" UPDATE customer SET last_name = ? , first_name = ? , city = ? , address = ? , mail = ? , phone = ? , cin = ? , scan_cin = ? , scan_driver_license = ? WHERE id =  ? ", new Object[] {customer.getLast_name(),customer.getFirst_name(),customer.getCity(),customer.getAddress(),customer.getMail(),customer.getPhone(),customer.getCin(),customer.getScan_cin(),customer.getScan_driver_license(),customer.getId()});
 	}
 
 	@Override
@@ -69,7 +71,7 @@ public class CustomDaoImpl implements CustomerDao {
 		// TODO Auto-generated method stub
 		try
           {
-		   Integer seq = (Integer) jdbcTemplate.queryForObject(" SELECT nextval('customer_seq_id') ",new Object[] {}, new BeanPropertyRowMapper(Integer.class));
+		   Integer seq = (Integer) jdbcTemplate.queryForObject(" SELECT nextval('customer_seq_id') ",Integer.class);
 		   return seq;
           }catch(EmptyResultDataAccessException e) {
 		   return null;
